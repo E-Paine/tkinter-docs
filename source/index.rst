@@ -1,15 +1,14 @@
-.. tkinter-docs documentation master file, created by
-   sphinx-quickstart on Thu May 13 20:48:50 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to tkinter-docs's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    tktcl.rst
+    canvas.rst
+    scrollbar.rst
 
+    generic.rst
+    glossary.rst
+    tk_attribution.rst
 
 
 Indices and tables
@@ -18,3 +17,16 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. note::
+    Not all options detailed here will be available on all Tk versions.
+
+.. note::
+    Internal tkinter methods are not documented here as they are subject to
+    change without notice.
+
+.. note::
+    This reference makes no claim about how up-to-date or accurate the content
+    is. It was up-to-date at the time of writing and I kindly ask any issues
+    are reported on the
+    `Github page <https://github.com/E-Paine/tkinter-docs>`_.
