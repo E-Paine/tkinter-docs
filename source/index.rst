@@ -1,5 +1,5 @@
-Welcome to tkinter-docs's documentation!
-========================================
+Welcome to tkinter-docs!
+========================
 
 .. toctree::
     tktcl.rst
