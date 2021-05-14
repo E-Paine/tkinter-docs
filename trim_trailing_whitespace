@@ -1,0 +1,2 @@
+# https://stackoverflow.com/a/149070/7496549
+find source -type f -exec sed -i 's/ *$//' '{}' ';'
