@@ -438,11 +438,11 @@ Canvas
           in front of the coordinate pair indicates using the current window's
           origin instead. For canvas objects, the *offset* option is used for
           stippling as well. The default value is ``"0,0"``.
-        
+
         .. warning::
-            Stipple offsets are only supported on X11; they are silently
+            Stipple offsets are only supported on Unix; they are silently
             ignored on other platforms.
-        
+
         .. note::
             A Python tuple of ``(x, y)`` cannot be given and instead must be
             manually formatted to string of the correct format (``"x,y"`` or
@@ -457,7 +457,7 @@ Canvas
           :ref:`Tk colour <colours>`. If color is specified as an empty string
           then no outline is drawn for the arc. The default values are as
           follows:
-          
+
           +---------+------------------------------------+
           | MacOS   | platform default foreground colour |
           +---------+------------------------------------+
@@ -479,11 +479,12 @@ Canvas
           the outline of the arc in its normal, active and disabled states
           (correspondingly). It indicates that the outline for the arc should
           be drawn with a stipple pattern and specifies the stipple pattern to
-          use. The given value may be any valid :ref:`Tk stipple <stipples>`.
-          If the *outline* option has not been specified then this option has
-          no effect. If the value is an empty string, then the outline is
-          drawn in a solid fashion. The default value is an empty string.
-          
+          use. The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. If the *outline* option has not been
+          specified then this option has no effect. If the value is an empty
+          string, then the outline is drawn in a solid fashion. The default
+          value is an empty string.
+
         .. warning::
             Stipples are not well supported on platforms other than Unix.
 
@@ -493,11 +494,11 @@ Canvas
         | This option specifies stipple patterns that should be used to fill
           the item in its normal, active and disabled states
           (correspondingly). The given value may be any valid
-          :ref:`Tk stipple <stipples>`. If the *fill* option has not been
+          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option has not been
           specified then this option has no effect. If the value is an empty
           string, then filling is done in a solid fashion. The default value
           is an empty string.
-        
+
         .. warning::
             Stipples are not well supported on platforms other than Unix.
 
@@ -539,12 +540,57 @@ Canvas
           the :ref:`coordinates <coordinates>` section below. If the *outline*
           option has been specified as an empty string, then this option has
           no effect. The default value is 1.
-        
+
         .. note::
             Wide outlines will be drawn centered on the edges of the arc's
             region.
 
     .. method:: create_bitmap(*args, **kw)
+
+        | *anchor=*
+        | The given value determines how to position the item relative to the
+          positioning coordinate for the bitmap; it may have any valid
+          :ref:`Tk anchor <anchors>`. For example, if the value is **center**
+          then the item is centered on the point; if the value is **n** then
+          the item will be drawn so that its top center point is at the
+          positioning coordinate. The default value is **center**.
+
+        | *background=*
+        | *activebackground=*
+        | *disabledbackground=*
+        | Specifies the color to use for each of the bitmap's “0” valued
+          pixels in its normal, active and disabled states (correspondingly).
+          The given value may be any valid :ref:`Tk colour <colours>`. If the
+          value is an empty string, then nothing is displayed where the bitmap
+          pixels are 0; this produces a transparent effect. The default value
+          is an empty string.
+
+        | *bitmap=*
+        | *activebitmap=*
+        | *disabledbitmap=*
+        | Specifies the bitmap to display in its normal, active and disabled
+          states (correspondingly). The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. An empty string specifies no bitmap. The
+          default value is an empty string.
+
+        | *foreground=*
+        | *activeforeground=*
+        | *disabledforeground=*
+        | Specifies the color to use for each of the bitmap's “1” valued
+          pixels in its normal, active and disabled states (correspondingly).
+          The given value may be any valid :ref:`Tk colour <colours>`.
+
+        | *state=*
+        | This allows the bitmap to override the canvas widget's global
+          *state* option. It takes the same values: normal, disabled or
+          hidden. An empty string will defer to the canvas widget's state.
+          The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the bitmap. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          bitmap. An empty list may also be specified. The default value is an
+          empty list.
 
     .. method:: create_image(*args, **kw)
 
@@ -559,7 +605,7 @@ Canvas
     .. method:: create_text(*args, **kw)
 
     .. method:: create_window(*args, **kw)
-    
+
     .. method:: itemconfigure()
 
 

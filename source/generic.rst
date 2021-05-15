@@ -2,6 +2,22 @@
 Tk Generic Properties
 *********************
 
+.. _anchors:
+
+Anchors
+-------
+
+TODO
+
+
+.. _bitmaps:
+
+Bitmaps and Stipples
+--------------------
+
+TODO
+
+
 Constants
 ---------
 
@@ -62,13 +78,5 @@ Whitespace is permitted between the number and distance-unit character.
 
 Reliefs
 -------
-
-TODO
-
-
-.. _stipples:
-
-Stipples
---------
 
 TODO

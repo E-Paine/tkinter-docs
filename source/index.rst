@@ -1,6 +1,13 @@
 Welcome to tkinter-docs!
 ========================
 
+This is designed as a reference for the regular Tk widgets. It is mostly just a
+'translation' of the
+`Tk 8.6 Man pages <https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm>`_ into
+what is hopefully a more understandable and newcomer-friendly form.
+
+It is currently a work-in-progress (with lots of 'TODO's!).
+
 .. toctree::
     tktcl.rst
     canvas.rst
