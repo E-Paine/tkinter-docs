@@ -10,6 +10,8 @@ Canvas
 
 .. class:: Canvas(master=None, cnf={}, **kw)
 
+    Create a canvas widget for drawing graphics.
+
     *master* is the parent widget of this canvas. If ``None``, tkinter will
     attempt to use the :term:`default root <default root>`.
 
@@ -21,8 +23,9 @@ Canvas
 
     | *background=*
     | *bg=*
-    | Specifies the normal background color to use when displaying the widget.
-      The default value is the platform default background colour.
+    | Specifies the normal background colour to use when displaying the
+      widget. The given value may be any valid :ref:`Tk colour <colours>`. The
+      default value is the platform default background colour.
 
     | *borderwidth=*
     | *bd=*
@@ -56,13 +59,15 @@ Canvas
       "7c".
 
     | *highlightbackground=*
-    | Specifies the color to use as a border highlight when the widget does
-      not have focus. The default value is the platform default background
-      colour.
+    | Specifies the colour to use as a border highlight when the widget does
+      not have focus. The given value may be any valid
+      :ref:`Tk colour <colours>`. The default value is the platform default
+      background colour.
 
     | *highlightcolor=*
-    | Specifies the color to use as a border highlight when the widget has
-      focus. The default values are as follows:
+    | Specifies the colour to use as a border highlight when the widget has
+      focus. The given value may be any valid :ref:`Tk colour <colours>`. The
+      default values are as follows:
 
       +---------+------------------------------------+
       | MacOS   | platform default foreground colour |
@@ -88,11 +93,12 @@ Canvas
       +---------+---+
 
     | *insertbackground=*
-    | Specifies the color to use as background in the area covered by the
-      insertion cursor. This color will normally override either the normal
-      background for the widget (or the selection background if the insertion
-      cursor happens to fall in the selection). The default values are as
-      follows:
+    | Specifies the colour to use as background in the area covered by the
+      insertion cursor. The given value may be any valid
+      :ref:`Tk colour <colours>`. This colour will normally override either
+      the normal background for the widget (or the selection background if the
+      insertion cursor happens to fall in the selection). The default values
+      are as follows:
 
       +---------+------------------------------------+
       | MacOS   | black                              |
@@ -143,8 +149,9 @@ Canvas
       the canvas. The default value is an empty string.
 
     | *selectbackground=*
-    | Specifies the background color to use when displaying selected items.
-      The default values are as follows:
+    | Specifies the background colour to use when displaying selected items.
+      The given value may be any valid :ref:`Tk colour <colours>`. The default
+      values are as follows:
 
       +---------+-----------------------------------+
       | MacOS   | platform default selection colour |
@@ -160,8 +167,9 @@ Canvas
       :ref:`Tk length <lengths>`. The default value is 0.
 
     | *selectforeground=*
-    | Specifies the foreground color to use when displaying selected items.
-      The default values are as follows:
+    | Specifies the foreground colour to use when displaying selected items.
+      The given value may be any valid :ref:`Tk colour <colours>`. The default
+      values are as follows:
 
       +---------+----------------------------------------+
       | MacOS   | platform default selection text colour |
@@ -356,26 +364,26 @@ Canvas
         returns the canvas x-coordinate that is displayed at that location. If
         *gridspacing* is specified, then the canvas coordinate is rounded to
         the nearest multiple of *gridspacing* units.
-    
+
     .. method:: canvasy(screeny, gridspacing=None)
-    
+
         Given a window y-coordinate in the canvas *screeny*, this command
         returns the canvas y-coordinate that is displayed at that location. If
         *gridspacing* is specified, then the canvas coordinate is rounded to
         the nearest multiple of *gridspacing* units.
-    
+
     .. method:: coords(*args)
-    
+
         Query or modify the coordinates that define an item. The first
         argument should always be the tag / id of a canvas item. If no
         coordinates are specified (i.e. the only argument given is the item
         tag / id), this command returns a tuple whose elements are the
         coordinates of the item.
-        
+
         If coordinates are specified, then they replace the current
         coordinates for the given item. If the tag / id refers to multiple
         items, then the bottom / first one in the display list is used.
-        
+
         .. note::
 
             For rectangles, ovals and arcs the returned list of coordinates
@@ -385,6 +393,175 @@ Canvas
             (that is, in pixels). So if the original coordinates were
             specified for instance in centimeters or inches, the returned
             values will nevertheless be in pixels.
+
+    .. method:: create_arc(*args, **kw)
+
+        Draw an arc, chord or pieslice. Returns the item id.
+
+        | *dash=*
+        | *activedash=*
+        | *disableddash=*
+        | These options specifies dash patterns for the normal, active and
+          disabled states of the arc (correspondingly). The value may be any
+          valid :ref:`Tk dash style <dashes>`. The default value is a solid
+          outline.
+
+        | *dashoffset=*
+        | The starting offset in pixels into the pattern provided by the
+          *dash* option. *dashoffset* is ignored if there is no *dash*
+          pattern. The offset may have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. The default value is
+          0.
+
+        | *extent=*
+        | Specifies the size of the angular range occupied by the arc. The
+          arc's range extends for the given number of degrees
+          counter-clockwise from the starting angle given by the *start*
+          option. The value may be negative. If it is greater than 360 or less
+          than -360, then degrees modulo 360 is used as the extent. The
+          default value is 90.
+
+        | *fill=*
+        | *activefill=*
+        | *disabledfill=*
+        | Specifies the colour to be used to fill arc's area in its normal,
+          active and disabled states (correspondingly). The given value may be
+          any valid :ref:`Tk colour <colours>`. If the value is an empty
+          string, then the arc will not be filled (i.e. it will be
+          transparent). The default value is an empty string.
+
+        | *offset=*
+        | Specifies the offset of stipples. The offset value can be of the
+          form ``"x,y"`` or side, where side can be **n**, **ne**, **e**,
+          **se**, **s**, **sw**, **w**, **nw**, or **center**. In the first
+          case, the origin is the origin of the canvas itself, but putting #
+          in front of the coordinate pair indicates using the current window's
+          origin instead. For canvas objects, the *offset* option is used for
+          stippling as well. The default value is ``"0,0"``.
+        
+        .. warning::
+            Stipple offsets are only supported on X11; they are silently
+            ignored on other platforms.
+        
+        .. note::
+            A Python tuple of ``(x, y)`` cannot be given and instead must be
+            manually formatted to string of the correct format (``"x,y"`` or
+            ``"#x,y"``).
+
+        | *outline=*
+        | *activeoutline=*
+        | *disabledoutline=*
+        | These options specifies the color that should be used to draw the
+          outline of the arc in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk colour <colours>`. If color is specified as an empty string
+          then no outline is drawn for the arc. The default values are as
+          follows:
+          
+          +---------+------------------------------------+
+          | MacOS   | platform default foreground colour |
+          +---------+------------------------------------+
+          | Unix    | black                              |
+          +---------+------------------------------------+
+          | Windows | platform default foreground colour |
+          +---------+------------------------------------+
+
+        | *outlineoffset=*
+        | Specifies the offset of the stipple pattern used for outlines, in
+          the same way that the *offset* option controls fill stipples. See
+          the *offset* option for a description of the syntax of offset. The
+          default value is ``"0,0"``.
+
+        | *outlinestipple=*
+        | *activeoutlinestipple=*
+        | *disabledoutlinestipple=*
+        | This option specifies stipple patterns that should be used to draw
+          the outline of the arc in its normal, active and disabled states
+          (correspondingly). It indicates that the outline for the arc should
+          be drawn with a stipple pattern and specifies the stipple pattern to
+          use. The given value may be any valid :ref:`Tk stipple <stipples>`.
+          If the *outline* option has not been specified then this option has
+          no effect. If the value is an empty string, then the outline is
+          drawn in a solid fashion. The default value is an empty string.
+          
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *stipple=*
+        | *activestipple=*
+        | *disabledstipple=*
+        | This option specifies stipple patterns that should be used to fill
+          the item in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk stipple <stipples>`. If the *fill* option has not been
+          specified then this option has no effect. If the value is an empty
+          string, then filling is done in a solid fashion. The default value
+          is an empty string.
+        
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *start=*
+        | Specifies the beginning of the angular range occupied by the arc.
+          The value is given in degrees measured counter-clockwise from the
+          3-o'clock position; it may be either positive or negative. The
+          default value is 0.
+
+        | *state=*
+        | This allows the arc to override the canvas widget's global *state*
+          option. It takes the same values: normal, disabled or hidden. An
+          empty string will defer to the canvas widget's state. The default
+          value is an empty string.
+
+        | *style=*
+        | Specifies how to draw the arc. If type is **pieslice** then the
+          arc's region is defined by a section of the oval's perimeter plus
+          two lines between the center of the oval and each end of the
+          perimeter section. If type is **chord** then the arc's region is
+          defined by a section of the oval's perimeter plus a single line
+          connecting the two end points of the perimeter section. If type is
+          **arc** then the arc's region consists of a section of the perimeter
+          alone. In this last case the *fill* option is ignored. The default
+          value is **pieslice**.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the arc. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          arc. An empty list may also be specified. The default value is an
+          empty list.
+
+        | *width=*
+        | *activewidth=*
+        | *disabledwidth=*
+        | Specifies the width of the outline to be drawn around the arc's
+          region, in its normal, active and disabled states
+          (correspondingly). The value may be in any of the forms described in
+          the :ref:`coordinates <coordinates>` section below. If the *outline*
+          option has been specified as an empty string, then this option has
+          no effect. The default value is 1.
+        
+        .. note::
+            Wide outlines will be drawn centered on the edges of the arc's
+            region.
+
+    .. method:: create_bitmap(*args, **kw)
+
+    .. method:: create_image(*args, **kw)
+
+    .. method:: create_line(*args, **kw)
+
+    .. method:: create_oval(*args, **kw)
+
+    .. method:: create_polygon(*args, **kw)
+
+    .. method:: create_rectangle(*args, **kw)
+
+    .. method:: create_text(*args, **kw)
+
+    .. method:: create_window(*args, **kw)
+    
+    .. method:: itemconfigure()
+
 
 .. _coordinates:
 

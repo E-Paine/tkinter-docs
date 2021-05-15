@@ -5,12 +5,33 @@ Tk Generic Properties
 Constants
 ---------
 
+Whether you use the constants or type the strings is completely down to
+personal preference.
+
+
+.. _colours:
+
+Colours
+-------
+
+TODO
+
+
 .. _cursors:
 
 Cursors
 -------
 
 TODO
+
+
+.. _dashes:
+
+Dashes
+------
+
+TODO
+
 
 .. _lengths:
 
@@ -36,9 +57,18 @@ A valid length may have any of the following forms (where # is a floating-point 
 
 Whitespace is permitted between the number and distance-unit character.
 
+
 .. _reliefs:
 
 Reliefs
 -------
+
+TODO
+
+
+.. _stipples:
+
+Stipples
+--------
 
 TODO
