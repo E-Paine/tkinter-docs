@@ -52,3 +52,11 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+# 404 page
+
+notfound_context = {
+    'title': 'Page not found',
+    'body': "<h1>Page not found</h1>\n\nSorry, we couldn't find this page.",
+}

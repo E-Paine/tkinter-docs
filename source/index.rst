@@ -20,13 +20,7 @@ It is currently a work-in-progress (with lots of 'TODO's!).
     glossary.rst
     tk_attribution.rst
 
-
-Indices and tables
-==================
-
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 .. note::
     Not all options detailed here will be available on all Tk versions.
