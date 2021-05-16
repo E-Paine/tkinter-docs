@@ -28,6 +28,7 @@ author = 'E-Paine'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "notfound.extension",
     "sphinx_rtd_dark_mode"
 ]
 
