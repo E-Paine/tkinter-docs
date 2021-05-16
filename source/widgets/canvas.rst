@@ -478,7 +478,7 @@ Canvas
         | *outlineoffset=*
         | Specifies the offset of the stipple pattern used for outlines, in
           the same way that the *offset* option controls fill stipples. See
-          the *offset* option for a description of the syntax of offset. The
+          the *offset* option for a description of acceptable values. The
           default value is ``"0,0"``.
 
         | *outlinestipple=*
@@ -793,6 +793,123 @@ Canvas
           string, then this option has no effect. The default value is 1.
 
     .. method:: create_oval(*args, **kw)
+
+        | *dash=*
+        | *activedash=*
+        | *disableddash=*
+        | These options specifies dash patterns for the normal, active and
+          disabled states of the outline of the oval (correspondingly). The
+          value may be any valid :ref:`Tk dash style <dashes>`. The default
+          value is a solid line.
+
+        | *dashoffset=*
+        | The starting offset in pixels into the pattern provided by the
+          *dash* option. *dashoffset* is ignored if there is no *dash*
+          pattern. The offset may have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. The default value is
+          0.
+
+        | *fill=*
+        | *activefill=*
+        | *disabledfill=*
+        | Specifies the colour to be used to fill oval's area in its normal,
+          active and disabled states (correspondingly). The given value may be
+          any valid :ref:`Tk colour <colours>`. If the value is an empty
+          string, then the oval will not be filled (i.e. it will be
+          transparent). The default value is an empty string.
+
+        | *offset=*
+        | Specifies the offset of stipples. The offset value can be of the
+          form ``"x,y"`` or side, where side can be **n**, **ne**, **e**,
+          **se**, **s**, **sw**, **w**, **nw**, or **center**. In the first
+          case, the origin is the origin of the canvas itself, but putting #
+          in front of the coordinate pair indicates using the current window's
+          origin instead. For canvas objects, the *offset* option is used for
+          stippling as well. The default value is ``"0,0"``.
+
+        .. warning::
+            Stipple offsets are only supported on Unix; they are silently
+            ignored on other platforms.
+
+        .. note::
+            A Python tuple of ``(x, y)`` cannot be given and instead must be
+            manually formatted to string of the correct format (``"x,y"`` or
+            ``"#x,y"``).
+
+        | *outline=*
+        | *activeoutline=*
+        | *disabledoutline=*
+        | These options specifies the color that should be used to draw the
+          outline of the oval in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk colour <colours>`. If color is specified as an empty string
+          then no outline is drawn for the oval. The default values are as
+          follows:
+
+          +---------+------------------------------------+
+          | MacOS   | platform default foreground colour |
+          +---------+------------------------------------+
+          | Unix    | black                              |
+          +---------+------------------------------------+
+          | Windows | platform default foreground colour |
+          +---------+------------------------------------+
+
+        | *outlineoffset=*
+        | Specifies the offset of the stipple pattern used for outlines, in
+          the same way that the *offset* option controls fill stipples. See
+          the *offset* option for a description of acceptable values. The
+          default value is ``"0,0"``.
+
+        | *outlinestipple=*
+        | *activeoutlinestipple=*
+        | *disabledoutlinestipple=*
+        | This option specifies stipple patterns that should be used to draw
+          the outline of the oval in its normal, active and disabled states
+          (correspondingly). It indicates that the outline for the oval should
+          be drawn with a stipple pattern and specifies the stipple pattern to
+          use. The given value may be any valid :ref:`Tk Bitmap <bitmaps>`. If
+          the *outline* option has not been specified then this option has no
+          effect. If the value is an empty string, then the outline is drawn
+          in a solid fashion. The default value is an empty string.
+
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *stipple=*
+        | *activestipple=*
+        | *disabledstipple=*
+        | This option specifies stipple patterns that should be used to fill
+          the oval in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option has not been
+          specified then this option has no effect. If the value is an empty
+          string, then filling is done in a solid fashion. The default value
+          is an empty string.
+
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *state=*
+        | This allows the oval to override the canvas widget's global
+          *state* option. It takes the same values: normal, disabled or
+          hidden. An empty string will defer to the canvas widget's state.
+          The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the oval. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          oval. An empty list may also be specified. The default value is an
+          empty list.
+
+        | *width=*
+        | *activewidth=*
+        | *disabledwidth=*
+        | Specifies the width of the outline to be drawn around the oval's
+          region, in its normal, active and disabled states (correspondingly).
+          The value may be in any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. If the *outline*
+          option has been specified as an empty string, then this option has
+          no effect. The default value is 1.
 
     .. method:: create_polygon(*args, **kw)
 

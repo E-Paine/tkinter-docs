@@ -31,4 +31,7 @@ It is currently a work-in-progress (with lots of 'TODO's!).
     This reference makes no claim about how up-to-date or accurate the content
     is. It was up-to-date at the time of writing and I kindly ask any issues
     are reported on the
-    `Github page <https://github.com/E-Paine/tkinter-docs>`_.
+    `Github page <https://github.com/E-Paine/tkinter-docs>`_ (trivial patches
+    are also welcome!).
+
+Licensed under CC0.
