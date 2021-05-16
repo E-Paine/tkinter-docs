@@ -1,0 +1,5 @@
+**********
+PhotoImage
+**********
+
+.. class:: PhotoImage

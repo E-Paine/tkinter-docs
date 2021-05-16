@@ -1,5 +1,6 @@
+************************
 Welcome to tkinter-docs!
-========================
+************************
 
 This is designed as a reference for the regular Tk widgets. It is mostly just a
 'translation' of the
@@ -9,9 +10,11 @@ what is hopefully a more understandable and newcomer-friendly form.
 It is currently a work-in-progress (with lots of 'TODO's!).
 
 .. toctree::
+    :maxdepth: 2
+
     tktcl.rst
-    canvas.rst
-    scrollbar.rst
+
+    widgets/index.rst
 
     generic.rst
     glossary.rst

@@ -1,0 +1,5 @@
+***********
+BitmapImage
+***********
+
+.. class:: BitmapImage

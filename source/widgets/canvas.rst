@@ -479,11 +479,10 @@ Canvas
           the outline of the arc in its normal, active and disabled states
           (correspondingly). It indicates that the outline for the arc should
           be drawn with a stipple pattern and specifies the stipple pattern to
-          use. The given value may be any valid
-          :ref:`Tk Bitmap <bitmaps>`. If the *outline* option has not been
-          specified then this option has no effect. If the value is an empty
-          string, then the outline is drawn in a solid fashion. The default
-          value is an empty string.
+          use. The given value may be any valid :ref:`Tk Bitmap <bitmaps>`. If
+          the *outline* option has not been specified then this option has no
+          effect. If the value is an empty string, then the outline is drawn
+          in a solid fashion. The default value is an empty string.
 
         .. warning::
             Stipples are not well supported on platforms other than Unix.
@@ -547,12 +546,14 @@ Canvas
 
     .. method:: create_bitmap(*args, **kw)
 
+        Draw a bitmap. Returns the item id.
+
         | *anchor=*
-        | The given value determines how to position the item relative to the
-          positioning coordinate for the bitmap; it may have any valid
+        | The given value determines how to position the bitmap relative to
+          the positioning coordinate for the bitmap; it may have any valid
           :ref:`Tk anchor <anchors>`. For example, if the value is **center**
-          then the item is centered on the point; if the value is **n** then
-          the item will be drawn so that its top center point is at the
+          then the bitmap is centered on the point; if the value is **n** then
+          the bitmap will be drawn so that its top center point is at the
           positioning coordinate. The default value is **center**.
 
         | *background=*
@@ -593,6 +594,35 @@ Canvas
           empty list.
 
     .. method:: create_image(*args, **kw)
+
+        Draw an image. Returns the item id.
+
+        | *anchor=*
+        | The given value determines how to position the image relative to the
+          positioning coordinate for the bitmap; it may have any valid
+          :ref:`Tk anchor <anchors>`. For example, if the value is **center**
+          then the image is centered on the point; if the value is **n** then
+          the image will be drawn so that its top center point is at the
+          positioning coordinate. The default value is **center**.
+
+        | *image=*
+        | *activeimage=*
+        | *disabledimage=*
+        | Specifies the image to display in the item in is normal, active and
+          disabled states (correspondingly). The image must be a
+          :mod:`BitmapImage`, :mod:`PhotoImage` or similar.
+
+        | *state=*
+        | This allows the image to override the canvas widget's global
+          *state* option. It takes the same values: normal, disabled or
+          hidden. An empty string will defer to the canvas widget's state.
+          The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the image. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          image. An empty list may also be specified. The default value is an
+          empty list.
 
     .. method:: create_line(*args, **kw)
 
