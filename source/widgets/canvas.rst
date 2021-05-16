@@ -398,13 +398,22 @@ Canvas
 
         Draw an arc, chord or pieslice. Returns the item id.
 
+        *args* is two coordinate points specifying a rectangle containing the
+        oval (from which part is taken to draw the arc). Because tkinter
+        flattens these, both ``(x1, y1, x2, y2)`` and
+        ``((x1, y1), (x2, y2))`` are acceptable.
+
+        .. image:: canvas_arc_bbox.svg
+
+        *kw* is the options, which can be any of the following:
+
         | *dash=*
         | *activedash=*
         | *disableddash=*
         | These options specifies dash patterns for the normal, active and
-          disabled states of the arc (correspondingly). The value may be any
-          valid :ref:`Tk dash style <dashes>`. The default value is a solid
-          outline.
+          disabled states of the outline of the arc (correspondingly). The
+          value may be any valid :ref:`Tk dash style <dashes>`. The default
+          value is a solid outline.
 
         | *dashoffset=*
         | The starting offset in pixels into the pattern provided by the
@@ -491,12 +500,11 @@ Canvas
         | *activestipple=*
         | *disabledstipple=*
         | This option specifies stipple patterns that should be used to fill
-          the item in its normal, active and disabled states
-          (correspondingly). The given value may be any valid
-          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option has not been
-          specified then this option has no effect. If the value is an empty
-          string, then filling is done in a solid fashion. The default value
-          is an empty string.
+          the arc in its normal, active and disabled states (correspondingly).
+          The given value may be any valid :ref:`Tk Bitmap <bitmaps>`. If the
+          *fill* option has not been specified then this option has no effect.
+          If the value is an empty string, then filling is done in a solid
+          fashion. The default value is an empty string.
 
         .. warning::
             Stipples are not well supported on platforms other than Unix.
@@ -548,6 +556,10 @@ Canvas
 
         Draw a bitmap. Returns the item id.
 
+        *args* is a single coordinate point.
+
+        *kw* is the options, which can be any of the following:
+
         | *anchor=*
         | The given value determines how to position the bitmap relative to
           the positioning coordinate for the bitmap; it may have any valid
@@ -597,6 +609,10 @@ Canvas
 
         Draw an image. Returns the item id.
 
+        *args* is a single coordinate point.
+
+        *kw* is the options, which can be any of the following:
+
         | *anchor=*
         | The given value determines how to position the image relative to the
           positioning coordinate for the bitmap; it may have any valid
@@ -625,6 +641,156 @@ Canvas
           empty list.
 
     .. method:: create_line(*args, **kw)
+
+        Draw a line. Returns the item id.
+
+        *args* is two or more coordinate points of the line. Because tkinter
+        flattens these, both ``(x1, y1, ..., xn, yn)`` and
+        ``((x1, y1), ..., (xn, yn))`` are acceptable.
+
+        *kw* is the options, which can be any of the following:
+
+        | *arrow=*
+        | Indicates whether or not arrowheads are to be drawn at one or both
+          ends of the line. The value must have one of the values **none**
+          (for no arrowheads), **first** (for an arrowhead at the first point
+          of the line), **last** (for an arrowhead at the last point of the
+          line), or **both** (for arrowheads at both ends). When requested to
+          draw an arrowhead, Tk internally adjusts the corresponding line end
+          point so that the rendered line ends at the neck of the arrowhead
+          rather than at its tip so that the line doesn't extend past the edge
+          of the arrowhead. This may trigger a **Leave** event if the mouse is
+          hovering this line end (see the :ref:`events <events>` section).
+          Conversely, when removing an arrowhead Tk adjusts the corresponding
+          line point the other way round, which may trigger an **Enter**
+          event. The default value is **none**.
+
+        | *arrowshape=*
+        | This option indicates how to draw arrowheads. The shape argument
+          must be a tuple / list with three elements, each specifying a
+          distance in any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. The first element of
+          the list gives the distance along the line from the neck of the
+          arrowhead to its tip (**l1** in the diagram). The second element
+          gives the distance along the line from the trailing points of the
+          arrowhead to the tip (**l2**), and the third element gives the
+          distance from the outside edge of the line to the trailing points
+          (**l3**). The default value is ``(8, 10, 3)``.
+
+          .. image:: canvas_line_arrowhead.svg
+
+        | *capstyle=*
+        | Specifies the ways in which caps are to be drawn at the endpoints of
+          the line. The value may be any of **butt**, **projecting**, or
+          **round**. Where arrowheads are drawn, the cap style is ignored. The
+          default value is **butt**.
+
+        | *dash=*
+        | *activedash=*
+        | *disableddash=*
+        | These options specifies dash patterns for the normal, active and
+          disabled states of the line (correspondingly). The value may be any
+          valid :ref:`Tk dash style <dashes>`. The default value is a solid
+          line.
+
+        | *dashoffset=*
+        | The starting offset in pixels into the pattern provided by the
+          *dash* option. *dashoffset* is ignored if there is no *dash*
+          pattern. The offset may have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. The default value is
+          0.
+
+        | *fill=*
+        | *activefill=*
+        | *disabledfill=*
+        | Specifies the colour used to draw the line in its normal, active and
+          disabled states (correspondingly). The given value may be any valid
+          :ref:`Tk colour <colours>`. If the value is an empty string, then
+          the line will not be filled (i.e. it will be transparent). The
+          default values are as follows:
+
+          +---------+------------------------------------+
+          | MacOS   | platform default foreground colour |
+          +---------+------------------------------------+
+          | Unix    | black                              |
+          +---------+------------------------------------+
+          | Windows | platform default foreground colour |
+          +---------+------------------------------------+
+
+        | *joinstyle=*
+        | Specifies the ways in which joints are to be drawn at the vertices
+          of the line (only applicable if more than 2 coordinates are given).
+          The value may be any of **bevel**, **miter**, or **round**. The
+          default value is **round**.
+
+        | *smooth=*
+        | This value must either be a boolean or a line smoothing method.
+
+            | ``True``
+            | **bezier**
+            | The line should be drawn as a curve, rendered as a set of
+              quadratic splines: one spline is drawn for the first and second
+              line segments, one for the second and third, and so on.
+              Straight-line segments can be generated within a curve by
+              duplicating the end-points of the desired line segment.
+
+            | **raw**
+            | The line should also be drawn as a curve but where the list of
+              coordinates is such that the first coordinate pair (and every
+              third coordinate pair thereafter) is a knot point on a cubic
+              Bezier curve, and the other coordinates are control points on
+              the cubic Bezier curve. Straight line segments can be generated
+              within a curve by making control points equal to their
+              neighbouring knot points. If the last point is a control point
+              and not a knot point, the point is repeated (one or two times)
+              so that it also becomes a knot point.
+
+            | ``False``
+            | empty string
+            | No smoothing is applied.
+
+          The default value is ``False``.
+
+        | *splinesteps=*
+        | Specifies the degree of smoothness desired for curves: each spline
+          will be approximated with number line segments. This option is
+          ignored if the *smooth* option is ``False`` or an empty string. The
+          default value is 12.
+
+        | *stipple=*
+        | *activestipple=*
+        | *disabledstipple=*
+        | This option specifies stipple patterns that should be used to fill
+          the line in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option is an empty string,
+          then this option has no effect. If the value is an empty string,
+          then filling is done in a solid fashion. The default value is an
+          empty string.
+
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *state=*
+        | This allows the line to override the canvas widget's global
+          *state* option. It takes the same values: normal, disabled or
+          hidden. An empty string will defer to the canvas widget's state.
+          The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the line. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          line. An empty list may also be specified. The default value is an
+          empty list.
+
+        | *width=*
+        | *activewidth=*
+        | *disabledwidth=*
+        | Specifies the width the line to be drawn, in its normal, active and
+          disabled states (correspondingly). The value may be in any of the
+          forms described in the :ref:`coordinates <coordinates>` section
+          below. If the *fill* option has been specified as an empty
+          string, then this option has no effect. The default value is 1.
 
     .. method:: create_oval(*args, **kw)
 

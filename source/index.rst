@@ -13,10 +13,8 @@ It is currently a work-in-progress (with lots of 'TODO's!).
     :maxdepth: 2
 
     tktcl.rst
-
     widgets/index.rst
-
-    generic.rst
+    generic/index.rst
     glossary.rst
     tk_attribution.rst
 

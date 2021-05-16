@@ -1,58 +1,8 @@
-*********************
-Tk Generic Properties
-*********************
-
-.. _anchors:
-
-Anchors
--------
-
-TODO
-
-
-.. _bitmaps:
-
-Bitmaps and Stipples
---------------------
-
-TODO
-
-
-Constants
----------
-
-Whether you use the constants or type the strings is completely down to
-personal preference.
-
-
-.. _colours:
-
-Colours
--------
-
-TODO
-
-
-.. _cursors:
-
-Cursors
--------
-
-TODO
-
-
-.. _dashes:
-
-Dashes
-------
-
-TODO
-
-
 .. _lengths:
 
+*******
 Lengths
--------
+*******
 
 A valid length may have any of the following forms (where # is a floating-point number):
 
@@ -72,11 +22,3 @@ A valid length may have any of the following forms (where # is a floating-point 
     | The number specifies a distance in printer's points (1/72 inch) on the screen.
 
 Whitespace is permitted between the number and distance-unit character.
-
-
-.. _reliefs:
-
-Reliefs
--------
-
-TODO
