@@ -181,14 +181,14 @@ Canvas
 
     | *state=*
     | Modifies the default state of the canvas where state may be set to one
-      of: "normal", "disabled", or "hidden". Individual canvas objects all
-      have their own state option which may override the default state. Many
-      options can take separate specifications such that the appearance of the
-      item can be different in different situations. The options that start
-      with "active" control the appearance when the mouse pointer is over it,
-      while the options starting with "disabled" control the appearance when
-      the state is disabled. Canvas items which are disabled will not react to
-      canvas bindings. The default value is "normal".
+      of: **normal**, **disabled**, or **hidden**. Individual canvas objects
+      all have their own state option which may override the default state.
+      Many options can take separate specifications such that the appearance
+      of the item can be different in different situations. The options that
+      start with "active" control the appearance when the mouse pointer is
+      over it, while the options starting with "disabled" control the
+      appearance when the state is disabled. Canvas items which are disabled
+      will not react to canvas bindings. The default value is **normal**.
 
     | *takefocus=*
     | Determines whether the window accepts the focus during keyboard
@@ -445,8 +445,7 @@ Canvas
           **se**, **s**, **sw**, **w**, **nw**, or **center**. In the first
           case, the origin is the origin of the canvas itself, but putting #
           in front of the coordinate pair indicates using the current window's
-          origin instead. For canvas objects, the *offset* option is used for
-          stippling as well. The default value is ``"0,0"``.
+          origin instead. The default value is ``"0,0"``.
 
         .. warning::
             Stipple offsets are only supported on Unix; they are silently
@@ -516,10 +515,10 @@ Canvas
           default value is 0.
 
         | *state=*
-        | This allows the arc to override the canvas widget's global *state*
-          option. It takes the same values: normal, disabled or hidden. An
-          empty string will defer to the canvas widget's state. The default
-          value is an empty string.
+        | This allows the arc to override the canvas widget's global
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
 
         | *style=*
         | Specifies how to draw the arc. If type is **pieslice** then the
@@ -595,9 +594,9 @@ Canvas
 
         | *state=*
         | This allows the bitmap to override the canvas widget's global
-          *state* option. It takes the same values: normal, disabled or
-          hidden. An empty string will defer to the canvas widget's state.
-          The default value is an empty string.
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
 
         | *tags=*
         | Specifies one or more tags to apply to the bitmap. When used in
@@ -630,9 +629,9 @@ Canvas
 
         | *state=*
         | This allows the image to override the canvas widget's global
-          *state* option. It takes the same values: normal, disabled or
-          hidden. An empty string will defer to the canvas widget's state.
-          The default value is an empty string.
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
 
         | *tags=*
         | Specifies one or more tags to apply to the image. When used in
@@ -773,9 +772,9 @@ Canvas
 
         | *state=*
         | This allows the line to override the canvas widget's global
-          *state* option. It takes the same values: normal, disabled or
-          hidden. An empty string will defer to the canvas widget's state.
-          The default value is an empty string.
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
 
         | *tags=*
         | Specifies one or more tags to apply to the line. When used in
@@ -793,6 +792,14 @@ Canvas
           string, then this option has no effect. The default value is 1.
 
     .. method:: create_oval(*args, **kw)
+
+        Draw an oval. Returns the item id.
+
+        *args* is two coordinate points specifying a rectangle containing the
+        oval. Because tkinter flattens these, both ``(x1, y1, x2, y2)`` and
+        ``((x1, y1), (x2, y2))`` are acceptable.
+
+        *kw* is the options, which can be any of the following:
 
         | *dash=*
         | *activedash=*
@@ -824,8 +831,7 @@ Canvas
           **se**, **s**, **sw**, **w**, **nw**, or **center**. In the first
           case, the origin is the origin of the canvas itself, but putting #
           in front of the coordinate pair indicates using the current window's
-          origin instead. For canvas objects, the *offset* option is used for
-          stippling as well. The default value is ``"0,0"``.
+          origin instead. The default value is ``"0,0"``.
 
         .. warning::
             Stipple offsets are only supported on Unix; they are silently
@@ -891,9 +897,9 @@ Canvas
 
         | *state=*
         | This allows the oval to override the canvas widget's global
-          *state* option. It takes the same values: normal, disabled or
-          hidden. An empty string will defer to the canvas widget's state.
-          The default value is an empty string.
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
 
         | *tags=*
         | Specifies one or more tags to apply to the oval. When used in
@@ -912,6 +918,167 @@ Canvas
           no effect. The default value is 1.
 
     .. method:: create_polygon(*args, **kw)
+
+        Draw a line. Returns the item id.
+
+        *args* is two or more coordinate points of the polygon. These will be
+        it's vertices (corners). Because tkinter flattens these, both
+        ``(x1, y1, ..., xn, yn)`` and ``((x1, y1), ..., (xn, yn))`` are
+        acceptable.
+
+        *kw* is the options, which can be any of the following:
+
+        | *dash=*
+        | *activedash=*
+        | *disableddash=*
+        | These options specifies dash patterns for the normal, active and
+          disabled states of the outline of the polygon (correspondingly). The
+          value may be any valid :ref:`Tk dash style <dashes>`. The default
+          value is a solid line.
+
+        | *dashoffset=*
+        | The starting offset in pixels into the pattern provided by the
+          *dash* option. *dashoffset* is ignored if there is no *dash*
+          pattern. The offset may have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. The default value is
+          0.
+
+        | *fill=*
+        | *activefill=*
+        | *disabledfill=*
+        | Specifies the colour to be used to fill polygon's area in its normal,
+          active and disabled states (correspondingly). The given value may be
+          any valid :ref:`Tk colour <colours>`. If the value is an empty
+          string, then the oval will not be filled (i.e. it will be
+          transparent). The default value is an empty string.
+
+        | *joinstyle=*
+        | Specifies the ways in which joints are to be drawn at the vertices
+          of the polygon. The value may be any of **bevel**, **miter**, or
+          **round**. The default value is **round**.
+
+        | *offset=*
+        | Specifies the offset of stipples. The offset value can be of the
+          form ``"x,y"`` or side, where side can be **n**, **ne**, **e**,
+          **se**, **s**, **sw**, **w**, **nw**, or **center**. In the first
+          case, the origin is the origin of the canvas itself, but putting #
+          in front of the coordinate pair indicates using the current window's
+          origin instead. The default value is ``"0,0"``.
+
+        .. warning::
+            Stipple offsets are only supported on Unix; they are silently
+            ignored on other platforms.
+
+        .. note::
+            A Python tuple of ``(x, y)`` cannot be given and instead must be
+            manually formatted to string of the correct format (``"x,y"`` or
+            ``"#x,y"``).
+
+        | *outline=*
+        | *activeoutline=*
+        | *disabledoutline=*
+        | These options specifies the color that should be used to draw the
+          outline of the oval in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk colour <colours>`. If color is specified as an empty string
+          then no outline is drawn for the oval. The default values are as
+          follows:
+
+          +---------+------------------------------------+
+          | MacOS   | platform default foreground colour |
+          +---------+------------------------------------+
+          | Unix    | black                              |
+          +---------+------------------------------------+
+          | Windows | platform default foreground colour |
+          +---------+------------------------------------+
+
+        | *outlineoffset=*
+        | Specifies the offset of the stipple pattern used for outlines, in
+          the same way that the *offset* option controls fill stipples. See
+          the *offset* option for a description of acceptable values. The
+          default value is ``"0,0"``.
+
+        | *outlinestipple=*
+        | *activeoutlinestipple=*
+        | *disabledoutlinestipple=*
+        | This option specifies stipple patterns that should be used to draw
+          the outline of the oval in its normal, active and disabled states
+          (correspondingly). It indicates that the outline for the oval should
+          be drawn with a stipple pattern and specifies the stipple pattern to
+          use. The given value may be any valid :ref:`Tk Bitmap <bitmaps>`. If
+          the *outline* option has not been specified then this option has no
+          effect. If the value is an empty string, then the outline is drawn
+          in a solid fashion. The default value is an empty string.
+
+        | *smooth=*
+        | This value must either be a boolean or a line smoothing method.
+
+            | ``True``
+            | **bezier**
+            | The outline should be drawn as a curve, rendered as a set of
+              quadratic splines: one spline is drawn for the first and second
+              line segments, one for the second and third, and so on.
+              Straight-line segments can be generated within a curve by
+              duplicating the end-points of the desired line segment.
+
+            | **raw**
+            | The outline should also be drawn as a curve but where the list
+              of coordinates is such that the first coordinate pair (and every
+              third coordinate pair thereafter) is a knot point on a cubic
+              Bezier curve, and the other coordinates are control points on
+              the cubic Bezier curve. Straight line segments can be generated
+              within a curve by making control points equal to their
+              neighbouring knot points. If the last point is a control point
+              and not a knot point, the point is repeated (one or two times)
+              so that it also becomes a knot point.
+
+            | ``False``
+            | empty string
+            | No smoothing is applied.
+
+          The default value is ``False``.
+
+        | *splinesteps=*
+        | Specifies the degree of smoothness desired for curves: each spline
+          will be approximated with number line segments. This option is
+          ignored if the *smooth* option is ``False`` or an empty string. The
+          default value is 12.
+
+        | *stipple=*
+        | *activestipple=*
+        | *disabledstipple=*
+        | This option specifies stipple patterns that should be used to fill
+          the polygon in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option has not been
+          specified then this option has no effect. If the value is an empty
+          string, then filling is done in a solid fashion. The default value
+          is an empty string.
+
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *state=*
+        | This allows the polygon to override the canvas widget's global
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the polygon. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          polygon. An empty list may also be specified. The default value is
+          an empty list.
+
+        | *width=*
+        | *activewidth=*
+        | *disabledwidth=*
+        | Specifies the width of the outline to be drawn around the polygon's
+          region, in its normal, active and disabled states (correspondingly).
+          The value may be in any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. If the *outline*
+          option has been specified as an empty string, then this option has
+          no effect. The default value is 1.
 
     .. method:: create_rectangle(*args, **kw)
 
