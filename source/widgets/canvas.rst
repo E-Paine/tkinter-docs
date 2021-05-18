@@ -346,6 +346,26 @@ Canvas
         is possible that no items have this tag / id, in which case the
         command has no effect.
 
+    .. method:: after(ms, func=None, *args)
+
+    .. method:: after_cancel(id)
+
+    .. method:: after_idle(func, *args)
+
+    .. method:: anchor(anchor=None)
+
+        See :mod:`Canvas.grid_anchor`.
+
+    .. method:: bell(displayof=0)
+
+    .. method:: bind(sequence=None, func=None, add=None)
+
+    .. method:: bind_all(sequence=None, func=None, add=None)
+
+    .. method:: bind_class(className, sequence=None, func=None, add=None)
+
+    .. method:: bindtags(tagList=None)
+
     .. method:: bbox(*args)
 
         Returns a tuple with four integers giving an approximate bounding box
@@ -354,9 +374,9 @@ Canvas
         elements are within the region bounded by x1 on the left, x2 on the
         right, y1 on the top, and y2 on the bottom. The return value may
         overestimate the actual bounding box by a few pixels. If no items
-        match any of the tagOrId arguments or if the matching items have empty
-        bounding boxes (i.e. they have nothing to display) then ``None`` is
-        returned.
+        match any of the item given in *args* or if the matching items have
+        empty bounding boxes (i.e. they have nothing to display) then ``None``
+        is returned.
 
     .. method:: canvasx(self, screenx, gridspacing=None)
 
@@ -371,6 +391,24 @@ Canvas
         returns the canvas y-coordinate that is displayed at that location. If
         *gridspacing* is specified, then the canvas coordinate is rounded to
         the nearest multiple of *gridspacing* units.
+
+    .. method:: cget(key)
+
+    .. method:: clipboard_append(string, **kw)
+
+    .. method:: clipboard_clear(**kw)
+
+    .. method:: clipboard_get(**kw)
+
+    .. method:: columnconfigure(index, cnf={}, **kw)
+
+        See :mod:`Canvas.grid_columnconfigure`.
+
+    .. method:: config(cnf=None, **kw)
+
+        See :mod:`Canvas.configure`.
+
+    .. method:: configure(cnf=None, **kw)
 
     .. method:: coords(*args)
 
@@ -1208,7 +1246,7 @@ Canvas
           no effect. The default value is 1.
 
     .. method:: create_text(*args, **kw)
-        
+
         Draw text. Returns the item id.
 
         *args* is a single coordinate point ``(x, y)``.
@@ -1287,7 +1325,7 @@ Canvas
         | *text=*
         | String specifies the characters to be displayed in the text item.
           Newline characters cause line breaks. The characters in the item may
-          also be changed with the :mod:`Canvas.delete` and
+          also be changed with the :mod:`Canvas.dchars` and
           :mod:`Canvas.insert` methods. The default value is an empty string.
 
         | *underline=*
@@ -1309,7 +1347,7 @@ Canvas
           value is 0.
 
     .. method:: create_window(*args, **kw)
-    
+
         'Embeds' another widget on the canvas. Returns the item id.
 
         *args* is a single coordinate point ``(x, y)``.
@@ -1355,17 +1393,421 @@ Canvas
           specified must either be a child of the canvas widget or a child of
           some ancestor of the canvas widget. The given widget must not be a
           :mod:`Toplevel` window.
-    
-    .. method:: delete()
-    
-    .. method:: insert()
 
-    .. method:: itemconfigure()
+    .. method:: dchars(*args)
+
+        For each item given by the first value of *args* (item id or tag),
+        delete the characters, or coordinates, in the range given by second
+        and third values of *args*, inclusive. If some of the items given by
+        do not support indexing operations then they ignore this operation.
+        Text items interpret second and third values of *args* as indices to a
+        character, line and polygon items interpret them as indices to a
+        coordinate (an x,y pair). Indices are described in
+        :ref:`indices <indices>` section below. If only two values are given
+        by *args*, it defaults to be the same as the second value.
+
+    .. method:: delete(*args)
+
+        Delete each of the items given by the first (and only) value of *args*
+        (this should be an item id or tag).
+
+    .. method:: deletecommand(name)
+
+    .. method:: destroy()
+
+    .. method:: dtag(*args)
+
+        For each of the items given by the first value of *args* (this should
+        be an item id or tag), delete the tag given by the second value of
+        *args* from the list of those associated with the item. If an item
+        does not have the tag specified for deletion, then the item is
+        unaffected by the command. If only one value is given in *args*, it
+        defaults to be the same as that of the first value.
+
+    .. method:: event_add(virtual, *sequences)
+
+    .. method:: event_delete(virtual, *sequences)
+
+    .. method:: event_generate(sequence, **kw)
+
+    .. method:: event_info(virtual=None)
+
+    .. method:: find_above(tagOrId)
+
+    .. method:: find_all()
+
+    .. method:: find_below(tagOrId)
+
+    .. method:: find_closest(x, y, halo=None, start=None)
+
+    .. method:: find_enclosed(x1, y1, x2, y2)
+
+    .. method:: find_overlapping(x1, y1, x2, y2)
+
+    .. method:: find_withtag(tagOrId)
+
+    .. method:: focus(*args)
+
+    .. method:: focus_displayof()
+
+    .. method:: focus_force()
+
+    .. method:: focus_get()
+
+    .. method:: focus_lastfor()
+
+    .. method:: focus_set()
+
+    .. method:: forget()
+
+        See :mod:`Canvas.pack_forget`.
+
+    .. method:: getboolean(s)
+
+    .. method:: getdouble(s)
+
+    .. method:: getint(s)
+
+    .. method:: gettags(*args)
+
+    .. method:: getvar(name='PY_VAR')
+
+    .. method:: grab_current()
+
+    .. method:: grab_release()
+
+    .. method:: grab_set()
+
+    .. method:: grab_set_global()
+
+    .. method:: grab_status()
+
+    .. method:: grid(cnf={}, **kw)
+
+        See :mod:`Canvas.grid_configure`.
+
+    .. method:: grid_anchor(anchor=None)
+
+    .. method:: grid_bbox(column=None, row=None, col2=None, row2=None)
+
+    .. method:: grid_configure(cnf={}, **kw)
+
+    .. method:: grid_columnconfigure(index, cnf={}, **kw)
+
+    .. method:: grid_forget()
+
+    .. method:: grid_info()
+
+    .. method:: grid_location(x, y)
+
+    .. method:: grid_propagate(flag=['_noarg_'])
+
+    .. method:: grid_remove()
+
+    .. method:: grid_rowconfigure(index, cnf={}, **kw)
+
+    .. method:: grid_size()
+
+    .. method:: grid_slaves(row=None, column=None)
+
+    .. method:: icursor(*args)
+
+    .. method:: index(*args)
+
+    .. method:: info()
+
+        See :mod:`Canvas.pack_info`.
+
+    .. method:: image_names()
+
+    .. method:: image_types()
+
+    .. method:: insert(*args)
+
+    .. method:: itemcget(tagOrId, option)
+
+    .. method:: itemconfig(tagOrId, cnf=None, **kw)
+
+        See :mod:`Canvas.itemconfigure`.
+
+    .. method:: itemconfigure(tagOrId, cnf=None, **kw)
+
+    .. method:: lift(*args)
+
+        See :mod:`Canvas.tag_raise`.
+
+    .. method:: keys()
+
+    .. method:: location(x, y)
+
+        See :mod:`Canvas.grid_location`.
+
+    .. method:: lower(*args)
+
+        See :mod:`Canvas.tag_lower`.
+
+    .. method:: mainloop(n=0)
+
+    .. method:: move(*args)
+
+    .. method:: moveto(tagOrId, x='', y='')
+
+    .. method:: nametowidget(name)
+
+    .. method:: option_add(pattern, value, priority=None)
+
+    .. method:: option_clear()
+
+    .. method:: option_get(name, className)
+
+    .. method:: option_readfile(fileName, priority=None)
+
+    .. method:: pack(cnf={}, **kw)
+
+        See :mod:`Canvas.pack_configure`.
+
+    .. method:: pack_configure(cnf={}, **kw)
+
+    .. method:: pack_forget()
+
+    .. method:: pack_info()
+
+    .. method:: pack_propagate(flag=['_noarg_'])
+
+    .. method:: pack_slaves()
+
+    .. method:: place(cnf={}, **kw)
+
+        See :mod:`Canvas.place_configure`.
+
+    .. method:: place_configure(cnf={}, **kw)
+
+    .. method:: place_forget()
+
+    .. method:: place_info()
+
+    .. method:: place_slaves()
+
+    .. method:: propagate(flag=['_noarg_'])
+
+        See :mod:`Canvas.pack_propagate`.
+
+    .. method:: postscript(cnf={}, **kw)
+
+    .. method:: quit()
+
+    .. method:: register(func, subst=None, needcleanup=1)
+
+    .. method:: rowconfigure(index, cnf={}, **kw)
+
+        See :mod:`Canvas.grid_rowconfigure`.
+
+    .. method:: scale(*args)
+
+    .. method:: scan_dragto(x, y, gain=10)
+
+    .. method:: scan_mark(x, y)
+
+    .. method:: select_adjust(tagOrId, index)
+
+    .. method:: select_clear()
+
+    .. method:: select_from(tagOrId, index)
+
+    .. method:: select_item()
+
+    .. method:: select_to(tagOrId, index)
+
+    .. method:: selection_clear(**kw)
+
+    .. method:: selection_get(**kw)
+
+    .. method:: selection_handle(command, **kw)
+
+    .. method:: selection_own(**kw)
+
+    .. method:: selection_own_get(**kw)
+
+    .. method:: send(interp, cmd, *args)
+
+    .. method:: setvar(name='PY_VAR', value='1')
+
+    .. method:: size()
+
+        See :mod:`Canvas.grid_size`.
+
+    .. method:: slaves()
+
+        See :mod:`Canvas.pack_slaves`.
+
+    .. method:: tag_bind(tagOrId, sequence=None, func=None, add=None)
+
+    .. method:: tag_lower(*args)
+
+    .. method:: tag_raise(*args)
+
+    .. method:: tag_unbind(tagOrId, sequence, funcid=None)
+
+    .. method:: tk_bisque()
+
+    .. method:: tk_focusFollowsMouse()
+
+    .. method:: tk_focusNext()
+
+    .. method:: tk_focusPrev()
+
+    .. method:: tk_setPalette(*args, **kw)
+
+    .. method:: tk_strictMotif(boolean=None)
+
+    .. method:: tkraise(*args)
+
+        See :mod:`Canvas.tag_raise`.
+
+    .. method:: type(tagOrId)
+
+    .. method:: unbind(sequence, funcid=None)
+
+    .. method:: unbind_all(sequence)
+
+    .. method:: unbind_class(className, sequence)
+
+    .. method:: update()
+
+    .. method:: update_idletasks()
+
+    .. method:: wait_variable(name='PY_VAR')
+
+    .. method:: wait_visibility(window=None)
+
+    .. method:: wait_window(window=None)
+
+    .. method:: waitvar(name='PY_VAR')
+
+        See :mod:`Canvas.wait_variable`.
+
+    .. method:: winfo_atom(name, displayof=0)
+
+    .. method:: winfo_atomname(id, displayof=0)
+
+    .. method:: winfo_cells()
+
+    .. method:: winfo_children()
+
+    .. method:: winfo_class()
+
+    .. method:: winfo_colormapfull()
+
+    .. method:: winfo_containing(rootX, rootY, displayof=0)
+
+    .. method:: winfo_depth()
+
+    .. method:: winfo_exists()
+
+    .. method:: winfo_fpixels(number)
+
+    .. method:: winfo_geometry()
+
+    .. method:: winfo_height()
+
+    .. method:: winfo_id()
+
+    .. method:: winfo_interps(displayof=0)
+
+    .. method:: winfo_ismapped()
+
+    .. method:: winfo_manager()
+
+    .. method:: winfo_name()
+
+    .. method:: winfo_parent()
+
+    .. method:: winfo_pathname(id, displayof=0)
+
+    .. method:: winfo_pixels(number)
+
+    .. method:: winfo_pointerx()
+
+    .. method:: winfo_pointerxy()
+
+    .. method:: winfo_pointery()
+
+    .. method:: winfo_reqheight()
+
+    .. method:: winfo_reqwidth()
+
+    .. method:: winfo_rgb(color)
+
+    .. method:: winfo_rootx()
+
+    .. method:: winfo_rooty()
+
+    .. method:: winfo_screen()
+
+    .. method:: winfo_screencells()
+
+    .. method:: winfo_screendepth()
+
+    .. method:: winfo_screenheight()
+
+    .. method:: winfo_screenmmheight()
+
+    .. method:: winfo_screenmmwidth()
+
+    .. method:: winfo_screenvisual()
+
+    .. method:: winfo_screenwidth()
+
+    .. method:: winfo_server()
+
+    .. method:: winfo_toplevel()
+
+    .. method:: winfo_viewable()
+
+    .. method:: winfo_visual()
+
+    .. method:: winfo_visualid()
+
+    .. method:: winfo_visualsavailable(includeids=False)
+
+    .. method:: winfo_vrootheight()
+
+    .. method:: winfo_vrootwidth()
+
+    .. method:: winfo_vrootx()
+
+    .. method:: winfo_vrooty()
+
+    .. method:: winfo_width()
+
+    .. method:: winfo_x()
+
+    .. method:: winfo_y()
+
+    .. method:: xview(*args)
+
+    .. method:: xview_moveto(fraction)
+
+    .. method:: xview_scroll(number, what)
+
+    .. method:: yview(*args)
+
+    .. method:: yview_moveto(fraction)
+
+    .. method:: yview_scroll(number, what)
 
 
 .. _coordinates:
 
 Coordinates
 -----------
+
+TODO
+
+
+.. _indices:
+
+Indices
+-------
 
 TODO
