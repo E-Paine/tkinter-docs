@@ -12,5 +12,6 @@ Tk Generic Properties
     cursors.rst
     dashes.rst
     events.rst
+    fonts.rst
     lengths.rst
     reliefs.rst

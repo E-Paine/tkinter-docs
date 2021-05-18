@@ -555,13 +555,13 @@ Canvas
 
         Draw a bitmap. Returns the item id.
 
-        *args* is a single coordinate point.
+        *args* is a single coordinate point ``(x, y)``.
 
         *kw* is the options, which can be any of the following:
 
         | *anchor=*
         | The given value determines how to position the bitmap relative to
-          the positioning coordinate for the bitmap; it may have any valid
+          the positioning coordinate; it may have any valid
           :ref:`Tk anchor <anchors>`. For example, if the value is **center**
           then the bitmap is centered on the point; if the value is **n** then
           the bitmap will be drawn so that its top center point is at the
@@ -608,13 +608,13 @@ Canvas
 
         Draw an image. Returns the item id.
 
-        *args* is a single coordinate point.
+        *args* is a single coordinate point ``(x, y)``.
 
         *kw* is the options, which can be any of the following:
 
         | *anchor=*
         | The given value determines how to position the image relative to the
-          positioning coordinate for the bitmap; it may have any valid
+          positioning coordinate; it may have any valid
           :ref:`Tk anchor <anchors>`. For example, if the value is **center**
           then the image is centered on the point; if the value is **n** then
           the image will be drawn so that its top center point is at the
@@ -1208,8 +1208,157 @@ Canvas
           no effect. The default value is 1.
 
     .. method:: create_text(*args, **kw)
+        
+        Draw text. Returns the item id.
+
+        *args* is a single coordinate point ``(x, y)``.
+
+        *kw* is the options, which can be any of the following:
+
+        | *anchor=*
+        | The given value determines how to position the text relative to the
+          positioning coordinate; it may have any valid
+          :ref:`Tk anchor <anchors>`. For example, if the value is **center**
+          then the text is centered on the point; if the value is **n** then
+          the text will be drawn so that its top center point is at the
+          positioning coordinate. The default value is **center**.
+
+        | *angle=*
+        | This value is how many degrees to rotate the text anticlockwise
+          about the positioning point for the text; it may have any
+          floating-point value from 0.0 to 360.0. For example, if the value is
+          90, then the text will be drawn vertically from bottom to top. The
+          default value is 0.
+
+        | *fill=*
+        | *activefill=*
+        | *disabledfill=*
+        | Specifies the colour used to draw the text in its normal, active and
+          disabled states (correspondingly). The given value may be any valid
+          :ref:`Tk colour <colours>`. If the value is an empty string, then
+          the text will not be filled (i.e. it will be transparent). The
+          default values are as follows:
+
+          +---------+------------------------------------+
+          | MacOS   | platform default foreground colour |
+          +---------+------------------------------------+
+          | Unix    | black                              |
+          +---------+------------------------------------+
+          | Windows | platform default foreground colour |
+          +---------+------------------------------------+
+
+        | *font=*
+        | Specifies the font to use for the text item. The value may be any
+          valid :ref:`Tk font <fonts>`. The default value is
+          **TkDefaultFont**.
+
+        | *justify=*
+        | Specifies how to justify the text within its bounding region. The
+          value must be one of **left**, **right**, or **center**. This option
+          will only matter if the text is displayed as multiple lines. The
+          default value is **left**.
+
+        | *stipple=*
+        | *activestipple=*
+        | *disabledstipple=*
+        | This option specifies stipple patterns that should be used to fill
+          the line in its normal, active and disabled states
+          (correspondingly). The given value may be any valid
+          :ref:`Tk Bitmap <bitmaps>`. If the *fill* option is an empty string,
+          then this option has no effect. If the value is an empty string,
+          then filling is done in a solid fashion. The default value is an
+          empty string.
+
+        .. warning::
+            Stipples are not well supported on platforms other than Unix.
+
+        | *state=*
+        | This allows the rectangle to override the canvas widget's global
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the rectangle. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          rectangle. An empty list may also be specified. The default value is
+          an empty list.
+
+        | *text=*
+        | String specifies the characters to be displayed in the text item.
+          Newline characters cause line breaks. The characters in the item may
+          also be changed with the :mod:`Canvas.delete` and
+          :mod:`Canvas.insert` methods. The default value is an empty string.
+
+        | *underline=*
+        | Specifies the integer index of a character within the text to be
+          underlined. 0 corresponds to the first character of the text
+          displayed, 1 to the next character, and so on. -1 means that no
+          underline should be drawn. Multiple characters cannot be underlined
+          with the exception of the whole text, where the appropriate font
+          should be used instead. The default value is -1.
+
+        | *width=*
+        | Specifies a maximum line length for the text, in any of the forms
+          described in the :ref:`coordinates <coordinates>` section below. If
+          this option is 0 the text is broken into lines only at newline
+          characters. However, if this option is non-zero then any line that
+          would be longer than lineLength is broken just before a space
+          character to make the line shorter than the given length; the space
+          character is treated as if it were a newline character. The default
+          value is 0.
 
     .. method:: create_window(*args, **kw)
+    
+        'Embeds' another widget on the canvas. Returns the item id.
+
+        *args* is a single coordinate point ``(x, y)``.
+
+        *kw* is the options, which can be any of the following:
+
+        | *anchor=*
+        | The given value determines how to position the widget relative to
+          the positioning coordinate; it may have any valid
+          :ref:`Tk anchor <anchors>`. For example, if the value is **center**
+          then the widget is centered on the point; if the value is **n** then
+          the window will be drawn so that its top center point is at the
+          positioning coordinate. The default value is **center**.
+
+        | *height=*
+        | Specifies the height to assign to the item's widget. The value may
+          have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. If the value is
+          specified as 0, then the window is given whatever height it requests
+          internally. The default value is 0.
+
+        | *state=*
+        | This allows the rectangle to override the canvas widget's global
+          *state* option. It takes the same values: **normal**, **disabled**
+          or **hidden**. An empty string will defer to the canvas widget's
+          state. The default value is an empty string.
+
+        | *tags=*
+        | Specifies one or more tags to apply to the rectangle. When used in
+          :mod:`Canvas.itemconfigure`, this replaces any existing tags for the
+          rectangle. An empty list may also be specified. The default value is
+          an empty list.
+
+        | *width=*
+        | Specifies the width to assign to the item's widget. The value may
+          have any of the forms described in the
+          :ref:`coordinates <coordinates>` section below. If the value is
+          specified as 0, then the window is given whatever height it requests
+          internally. The default value is 0.
+
+        | *window=*
+        | Specifies the widget to associate with this item. The widget
+          specified must either be a child of the canvas widget or a child of
+          some ancestor of the canvas widget. The given widget must not be a
+          :mod:`Toplevel` window.
+    
+    .. method:: delete()
+    
+    .. method:: insert()
 
     .. method:: itemconfigure()
 

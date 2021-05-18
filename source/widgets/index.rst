@@ -9,3 +9,4 @@ Widgets
     canvas.rst
     photoimage.rst
     scrollbar.rst
+    toplevel.rst
