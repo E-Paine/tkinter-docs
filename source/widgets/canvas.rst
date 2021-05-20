@@ -10,7 +10,8 @@ Canvas
 
 .. class:: Canvas(master=None, cnf={}, **kw)
 
-    Create a canvas widget for drawing graphics.
+    Create a canvas widget for drawing graphics. It inherits all the common
+    widget methods of :mod:`Widget`.
 
     *master* is the parent widget of this canvas. If ``None``, tkinter will
     attempt to use the :term:`default root <default root>`.
@@ -277,7 +278,7 @@ Canvas
 
     .. method:: addtag_above(newtag, tagOrId)
 
-        For each item just after (above) the one given by *tagOrId* in the
+        For a single item just after (above) the one given by *tagOrId* in the
         display list, add *newtag* to the list of tags associated with the
         item if it is not already present on that list. It is possible that
         no items will be above the item given by *tagOrId*, in which case the
@@ -292,8 +293,8 @@ Canvas
 
     .. method:: addtag_below(newtag, tagOrId)
 
-        For each item just before (below) the one given by *tagOrId* in the
-        display list, add *newtag* to the list of tags associated with the
+        For a single item just before (below) the one given by *tagOrId* in
+        the display list, add *newtag* to the list of tags associated with the
         item if it is not already present on that list. It is possible that
         no items will be below the item given by *tagOrId*, in which case the
         command has no effect. If *tagOrId* denotes more than one item, then
@@ -319,7 +320,8 @@ Canvas
         given tag). Instead of adding *newtag* to the topmost closest item,
         this will tag the topmost closest item that is below *start* in the
         display list; if no such item exists, then it will behave as if the
-        *start* argument had not been specified.
+        *start* argument had not been specified. This will only have an effect
+        if *halo* is given.
 
     .. method:: addtag_enclosed(newtag, x1, y1, x2, y2)
 
@@ -346,26 +348,6 @@ Canvas
         is possible that no items have this tag / id, in which case the
         command has no effect.
 
-    .. method:: after(ms, func=None, *args)
-
-    .. method:: after_cancel(id)
-
-    .. method:: after_idle(func, *args)
-
-    .. method:: anchor(anchor=None)
-
-        See :mod:`Canvas.grid_anchor`.
-
-    .. method:: bell(displayof=0)
-
-    .. method:: bind(sequence=None, func=None, add=None)
-
-    .. method:: bind_all(sequence=None, func=None, add=None)
-
-    .. method:: bind_class(className, sequence=None, func=None, add=None)
-
-    .. method:: bindtags(tagList=None)
-
     .. method:: bbox(*args)
 
         Returns a tuple with four integers giving an approximate bounding box
@@ -391,24 +373,6 @@ Canvas
         returns the canvas y-coordinate that is displayed at that location. If
         *gridspacing* is specified, then the canvas coordinate is rounded to
         the nearest multiple of *gridspacing* units.
-
-    .. method:: cget(key)
-
-    .. method:: clipboard_append(string, **kw)
-
-    .. method:: clipboard_clear(**kw)
-
-    .. method:: clipboard_get(**kw)
-
-    .. method:: columnconfigure(index, cnf={}, **kw)
-
-        See :mod:`Canvas.grid_columnconfigure`.
-
-    .. method:: config(cnf=None, **kw)
-
-        See :mod:`Canvas.configure`.
-
-    .. method:: configure(cnf=None, **kw)
 
     .. method:: coords(*args)
 
@@ -1411,10 +1375,6 @@ Canvas
         Delete each of the items given by the first (and only) value of *args*
         (this should be an item id or tag).
 
-    .. method:: deletecommand(name)
-
-    .. method:: destroy()
-
     .. method:: dtag(*args)
 
         For each of the items given by the first value of *args* (this should
@@ -1424,103 +1384,95 @@ Canvas
         unaffected by the command. If only one value is given in *args*, it
         defaults to be the same as that of the first value.
 
-    .. method:: event_add(virtual, *sequences)
-
-    .. method:: event_delete(virtual, *sequences)
-
-    .. method:: event_generate(sequence, **kw)
-
-    .. method:: event_info(virtual=None)
-
     .. method:: find_above(tagOrId)
+
+        Returns a single item just after (above) the one given by *tagOrId* in
+        the display list, regardless of current visibility. If *tagOrId*
+        denotes more than one item, then the last (topmost) of these items in
+        the display list is used.
 
     .. method:: find_all()
 
+        Returns every item on the canvas, regardless of current visibility.
+        The items are returned in stacking order, with the lowest item first.
+
     .. method:: find_below(tagOrId)
+
+        Returns a single item just before (below) the one given by *tagOrId*
+        in the display list, regardless of current visibility. If *tagOrId*
+        denotes more than one item, then the first (lowest) of these items in
+        the display list is used.
 
     .. method:: find_closest(x, y, halo=None, start=None)
 
+        Returns the closest visible item to the point given by x and y. If
+        more than one item is at the same closest distance (e.g. two items
+        overlap the point), then the top-most of these items (the last one in
+        the display list) will be returned.
+
+        If *halo* is specified, then it must be a non-negative
+        :ref:`length <lengths>`. Any item closer than *halo* to the point is
+        considered to overlap it. All items overlapping the halo are treated
+        as if they have a distance of 0 from the given point.
+
+        If *start* is specified, it names an item using a tag or id (if by
+        tag, it selects the bottom / first item in the display list with the
+        given tag). Instead of returning the topmost closest item, this will
+        return the topmost closest item that is below *start* in the display
+        list; if no such item exists, then it will behave as if the *start*
+        argument had not been specified. This will only have an effect if
+        *halo* is given.
+
     .. method:: find_enclosed(x1, y1, x2, y2)
+
+        Returns every item completely enclosed within the rectangular region
+        given by *x1*, *y1*, *x2*, and *y2*. ``(x1, y1)`` must be the top-left
+        corner of the region and ``(x2, y2)`` the bottom-right. The items are
+        returned in stacking order, with the lowest item first.
 
     .. method:: find_overlapping(x1, y1, x2, y2)
 
+        Returns every item overlapping the rectangular region given by *x1*,
+        *y1*, *x2*, and *y2*. ``(x1, y1)`` must be the top-left corner of the
+        region and ``(x2, y2)`` the bottom-right. The items are returned in
+        stacking order, with the lowest item first.
+
     .. method:: find_withtag(tagOrId)
+
+        Returns every item specified by *tagOrId*. The items are returned in
+        stacking order, with the lowest item first.
 
     .. method:: focus(*args)
 
-    .. method:: focus_displayof()
-
-    .. method:: focus_force()
-
-    .. method:: focus_get()
-
-    .. method:: focus_lastfor()
-
-    .. method:: focus_set()
-
-    .. method:: forget()
-
-        See :mod:`Canvas.pack_forget`.
-
-    .. method:: getboolean(s)
-
-    .. method:: getdouble(s)
-
-    .. method:: getint(s)
+        Set the keyboard focus for the canvas widget to the item given by the
+        first value of *args*. If this value refers to several items, then the
+        focus is set to the first (lowest) such item in the display list that
+        supports the insertion cursor. If tagOrId does not refer to any items,
+        or if none of them support the insertion cursor, then the focus is not
+        changed. If the first value of *args* is an empty string, then the
+        focus item is reset so that no item has the focus. If *args* is empty
+        then the command returns the id for the item that currently has the
+        focus, or an empty string if no item has the focus.
+        
+        Once the focus has been set to an item, the item will display the
+        insertion cursor and all keyboard events will be directed to that
+        item. The focus item within a canvas and the focus item on the window
+        are totally independent: a given item does not actually have the input
+        focus unless it satisfies both of the following:
+        
+        (a) its canvas is the focus widget
+        
+        (b) the item is the focus item within the canvas
+        
+        In most cases it is advisable to follow :mod:`Canvas.focus` with one
+        of :mod:`Widget.focus_force` or :mod:`Widget.focus_set` to set the
+        focus widget to the canvas (if it was not there already).
 
     .. method:: gettags(*args)
-
-    .. method:: getvar(name='PY_VAR')
-
-    .. method:: grab_current()
-
-    .. method:: grab_release()
-
-    .. method:: grab_set()
-
-    .. method:: grab_set_global()
-
-    .. method:: grab_status()
-
-    .. method:: grid(cnf={}, **kw)
-
-        See :mod:`Canvas.grid_configure`.
-
-    .. method:: grid_anchor(anchor=None)
-
-    .. method:: grid_bbox(column=None, row=None, col2=None, row2=None)
-
-    .. method:: grid_configure(cnf={}, **kw)
-
-    .. method:: grid_columnconfigure(index, cnf={}, **kw)
-
-    .. method:: grid_forget()
-
-    .. method:: grid_info()
-
-    .. method:: grid_location(x, y)
-
-    .. method:: grid_propagate(flag=['_noarg_'])
-
-    .. method:: grid_remove()
-
-    .. method:: grid_rowconfigure(index, cnf={}, **kw)
-
-    .. method:: grid_size()
-
-    .. method:: grid_slaves(row=None, column=None)
 
     .. method:: icursor(*args)
 
     .. method:: index(*args)
-
-    .. method:: info()
-
-        See :mod:`Canvas.pack_info`.
-
-    .. method:: image_names()
-
-    .. method:: image_types()
 
     .. method:: insert(*args)
 
@@ -1536,71 +1488,15 @@ Canvas
 
         See :mod:`Canvas.tag_raise`.
 
-    .. method:: keys()
-
-    .. method:: location(x, y)
-
-        See :mod:`Canvas.grid_location`.
-
     .. method:: lower(*args)
 
         See :mod:`Canvas.tag_lower`.
-
-    .. method:: mainloop(n=0)
 
     .. method:: move(*args)
 
     .. method:: moveto(tagOrId, x='', y='')
 
-    .. method:: nametowidget(name)
-
-    .. method:: option_add(pattern, value, priority=None)
-
-    .. method:: option_clear()
-
-    .. method:: option_get(name, className)
-
-    .. method:: option_readfile(fileName, priority=None)
-
-    .. method:: pack(cnf={}, **kw)
-
-        See :mod:`Canvas.pack_configure`.
-
-    .. method:: pack_configure(cnf={}, **kw)
-
-    .. method:: pack_forget()
-
-    .. method:: pack_info()
-
-    .. method:: pack_propagate(flag=['_noarg_'])
-
-    .. method:: pack_slaves()
-
-    .. method:: place(cnf={}, **kw)
-
-        See :mod:`Canvas.place_configure`.
-
-    .. method:: place_configure(cnf={}, **kw)
-
-    .. method:: place_forget()
-
-    .. method:: place_info()
-
-    .. method:: place_slaves()
-
-    .. method:: propagate(flag=['_noarg_'])
-
-        See :mod:`Canvas.pack_propagate`.
-
     .. method:: postscript(cnf={}, **kw)
-
-    .. method:: quit()
-
-    .. method:: register(func, subst=None, needcleanup=1)
-
-    .. method:: rowconfigure(index, cnf={}, **kw)
-
-        See :mod:`Canvas.grid_rowconfigure`.
 
     .. method:: scale(*args)
 
@@ -1618,28 +1514,6 @@ Canvas
 
     .. method:: select_to(tagOrId, index)
 
-    .. method:: selection_clear(**kw)
-
-    .. method:: selection_get(**kw)
-
-    .. method:: selection_handle(command, **kw)
-
-    .. method:: selection_own(**kw)
-
-    .. method:: selection_own_get(**kw)
-
-    .. method:: send(interp, cmd, *args)
-
-    .. method:: setvar(name='PY_VAR', value='1')
-
-    .. method:: size()
-
-        See :mod:`Canvas.grid_size`.
-
-    .. method:: slaves()
-
-        See :mod:`Canvas.pack_slaves`.
-
     .. method:: tag_bind(tagOrId, sequence=None, func=None, add=None)
 
     .. method:: tag_lower(*args)
@@ -1648,153 +1522,11 @@ Canvas
 
     .. method:: tag_unbind(tagOrId, sequence, funcid=None)
 
-    .. method:: tk_bisque()
-
-    .. method:: tk_focusFollowsMouse()
-
-    .. method:: tk_focusNext()
-
-    .. method:: tk_focusPrev()
-
-    .. method:: tk_setPalette(*args, **kw)
-
-    .. method:: tk_strictMotif(boolean=None)
-
     .. method:: tkraise(*args)
 
         See :mod:`Canvas.tag_raise`.
 
     .. method:: type(tagOrId)
-
-    .. method:: unbind(sequence, funcid=None)
-
-    .. method:: unbind_all(sequence)
-
-    .. method:: unbind_class(className, sequence)
-
-    .. method:: update()
-
-    .. method:: update_idletasks()
-
-    .. method:: wait_variable(name='PY_VAR')
-
-    .. method:: wait_visibility(window=None)
-
-    .. method:: wait_window(window=None)
-
-    .. method:: waitvar(name='PY_VAR')
-
-        See :mod:`Canvas.wait_variable`.
-
-    .. method:: winfo_atom(name, displayof=0)
-
-    .. method:: winfo_atomname(id, displayof=0)
-
-    .. method:: winfo_cells()
-
-    .. method:: winfo_children()
-
-    .. method:: winfo_class()
-
-    .. method:: winfo_colormapfull()
-
-    .. method:: winfo_containing(rootX, rootY, displayof=0)
-
-    .. method:: winfo_depth()
-
-    .. method:: winfo_exists()
-
-    .. method:: winfo_fpixels(number)
-
-    .. method:: winfo_geometry()
-
-    .. method:: winfo_height()
-
-    .. method:: winfo_id()
-
-    .. method:: winfo_interps(displayof=0)
-
-    .. method:: winfo_ismapped()
-
-    .. method:: winfo_manager()
-
-    .. method:: winfo_name()
-
-    .. method:: winfo_parent()
-
-    .. method:: winfo_pathname(id, displayof=0)
-
-    .. method:: winfo_pixels(number)
-
-    .. method:: winfo_pointerx()
-
-    .. method:: winfo_pointerxy()
-
-    .. method:: winfo_pointery()
-
-    .. method:: winfo_reqheight()
-
-    .. method:: winfo_reqwidth()
-
-    .. method:: winfo_rgb(color)
-
-    .. method:: winfo_rootx()
-
-    .. method:: winfo_rooty()
-
-    .. method:: winfo_screen()
-
-    .. method:: winfo_screencells()
-
-    .. method:: winfo_screendepth()
-
-    .. method:: winfo_screenheight()
-
-    .. method:: winfo_screenmmheight()
-
-    .. method:: winfo_screenmmwidth()
-
-    .. method:: winfo_screenvisual()
-
-    .. method:: winfo_screenwidth()
-
-    .. method:: winfo_server()
-
-    .. method:: winfo_toplevel()
-
-    .. method:: winfo_viewable()
-
-    .. method:: winfo_visual()
-
-    .. method:: winfo_visualid()
-
-    .. method:: winfo_visualsavailable(includeids=False)
-
-    .. method:: winfo_vrootheight()
-
-    .. method:: winfo_vrootwidth()
-
-    .. method:: winfo_vrootx()
-
-    .. method:: winfo_vrooty()
-
-    .. method:: winfo_width()
-
-    .. method:: winfo_x()
-
-    .. method:: winfo_y()
-
-    .. method:: xview(*args)
-
-    .. method:: xview_moveto(fraction)
-
-    .. method:: xview_scroll(number, what)
-
-    .. method:: yview(*args)
-
-    .. method:: yview_moveto(fraction)
-
-    .. method:: yview_scroll(number, what)
 
 
 .. _coordinates:
