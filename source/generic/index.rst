@@ -13,5 +13,6 @@ Tk Generic Properties
     dashes.rst
     events.rst
     fonts.rst
+    get_config_info.rst
     lengths.rst
     reliefs.rst

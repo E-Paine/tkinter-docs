@@ -11,7 +11,7 @@ Canvas
 .. class:: Canvas(master=None, cnf={}, **kw)
 
     Create a canvas widget for drawing graphics. It inherits all the common
-    widget methods of :mod:`Widget`.
+    widget methods of :mod:`Widget`, :mod:`XView` and :mod:`YView`.
 
     *master* is the parent widget of this canvas. If ``None``, tkinter will
     attempt to use the :term:`default root <default root>`.
@@ -1368,7 +1368,7 @@ Canvas
         character, line and polygon items interpret them as indices to a
         coordinate (an x,y pair). Indices are described in
         :ref:`indices <indices>` section below. If only two values are given
-        by *args*, it defaults to be the same as the second value.
+        by *args*, the third value defaults to be the same as the second.
 
     .. method:: delete(*args)
 
@@ -1440,7 +1440,9 @@ Canvas
     .. method:: find_withtag(tagOrId)
 
         Returns every item specified by *tagOrId*. The items are returned in
-        stacking order, with the lowest item first.
+        stacking order, with the lowest item first. If an id is given, the a
+        tuple of just that id will be returned and therefore most uses of this
+        method will provide a tag instead.
 
     .. method:: focus(*args)
 
@@ -1453,36 +1455,97 @@ Canvas
         focus item is reset so that no item has the focus. If *args* is empty
         then the command returns the id for the item that currently has the
         focus, or an empty string if no item has the focus.
-        
+
         Once the focus has been set to an item, the item will display the
         insertion cursor and all keyboard events will be directed to that
         item. The focus item within a canvas and the focus item on the window
         are totally independent: a given item does not actually have the input
         focus unless it satisfies both of the following:
-        
+
         (a) its canvas is the focus widget
-        
+
         (b) the item is the focus item within the canvas
-        
-        In most cases it is advisable to follow :mod:`Canvas.focus` with one
+
+        In most cases, it is advisable to follow :mod:`Canvas.focus` with one
         of :mod:`Widget.focus_force` or :mod:`Widget.focus_set` to set the
         focus widget to the canvas (if it was not there already).
 
     .. method:: gettags(*args)
 
+        This can be somewhat thought of as the inverse of
+        :mod:`Canvas.find_withtag`; given a single value in *args*, this will
+        return the tags for that item. If multiple items are specified by the
+        given value, then the tags of the first (lowest) item in the display
+        list are returned.
+
     .. method:: icursor(*args)
+
+        Set the position of the insertion cursor for the item(s) given by the
+        first value of *args* to just before the character whose position is
+        given by the second value of *args*. If some or all of the items given
+        by the first value do not support an insertion cursor then this
+        command has no effect on them. See the :ref:`indices <indices>`
+        section below for a description of the legal forms for index.
+
+        .. note::
+            The insertion cursor is only displayed in an item if that item
+            currently has the keyboard focus (see the :mod:`Canvas.focus`
+            method above), but the cursor position may be set even when the
+            item does not have the focus.
 
     .. method:: index(*args)
 
+        This command returns an integer giving the numerical index within the
+        first value of *args* corresponding to the second value. The second
+        value gives a textual description of the desired position as described
+        in :ref:`indices <indices>` below. Text items interpret index as an
+        index to a character while line and polygon items interpret it as an
+        index to a coordinate (an x,y pair). The return value is guaranteed to
+        lie between 0 and the number of characters or coordinates within the
+        item (inclusive). If the first value of *args* refers to multiple
+        items, then the index is processed in the first (lowest) of these
+        items that supports indexing operations.
+
     .. method:: insert(*args)
 
+        For each of the items given by the first value of *args*, if the item
+        supports text or coordinate, insertion then the third value of *args*
+        is inserted into the item's text just before the character, or
+        coordinate, whose index is that given by the second value of *args*.
+        Text items interpret the second value as an index to a character while
+        line and polygon items interpret it as an index to a coordinate
+        (an x,y pair). For lines and polygons the third value of *args* must
+        be a valid coordinate sequence. See :ref:`indices <indices>` below for
+        information about the forms allowed for the second value of *args*.
+
     .. method:: itemcget(tagOrId, option)
+
+        Returns the current value of the configuration option for the item
+        given by *tagOrId* whose name is *option*. This command is similar to
+        the :mod:`Widget.cget` method except that it applies to a particular
+        item rather than the widget as a whole. *option* may have any of the
+        options accepted by the create_* method used to first create the item.
+        If *tagOrId* is a tag that refers to more than one item, the first
+        (lowest) such item is used.
 
     .. method:: itemconfig(tagOrId, cnf=None, **kw)
 
         See :mod:`Canvas.itemconfigure`.
 
     .. method:: itemconfigure(tagOrId, cnf=None, **kw)
+    
+        This command is similar to the :mod:`Widget.configure` method except
+        that it modifies item-specific options for the items given by
+        *tagOrId* instead of modifying options for the overall canvas widget.
+        If no option/s are specified, this returns a list describing all of
+        the available options for the first item given by *tagOrId* (see
+        :ref:`getting configuration information <get_config_info>` for
+        information on the format of the return value). If one or more
+        option-value pairs are specified, then the command modifies the given
+        widget option/s to have the given value/s in each of the items given
+        by *tagOrId*; in this case the method returns ``None``. The options
+        and values are the same as those accepted by the create_* method used
+        to first create the item/s.
 
     .. method:: lift(*args)
 
